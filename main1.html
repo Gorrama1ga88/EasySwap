@@ -214,3 +214,30 @@
     </header>
 
     <div id="connectWrap" class="card" style="text-align: center; padding: 32px;">
+      <p class="network" id="networkName">Connect wallet to see network</p>
+      <button type="button" class="btn btnConnect" id="connectBtn">Connect wallet</button>
+    </div>
+
+    <div id="swapWrap" style="display: none;">
+      <div class="network" id="networkName2"></div>
+      <div class="card">
+        <div class="row">
+          <div style="flex: 1;">
+            <div class="label">You pay</div>
+            <div class="inputWrap">
+              <input type="text" id="amountIn" placeholder="0.0" inputmode="decimal" autocomplete="off" />
+            </div>
+          </div>
+          <div>
+            <div class="label">&nbsp;</div>
+            <button type="button" class="tokenBtn" id="tokenInBtn">
+              <span class="sym" id="tokenInSym">ETH</span>
+            </button>
+          </div>
+        </div>
+        <div class="swapArrow">
+          <button type="button" id="flipBtn" aria-label="Flip">⇅</button>
+        </div>
+        <div class="row">
+          <div style="flex: 1;">
+            <div class="label">You receive</div>
