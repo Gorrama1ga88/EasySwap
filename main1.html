@@ -133,3 +133,30 @@
       border: 1px solid var(--border);
       background: var(--surface2);
       color: var(--textMuted);
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: all 0.2s;
+    }
+    .swapArrow button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: rotate(180deg);
+    }
+    .quoteBox {
+      margin-top: 16px;
+      padding: 12px 14px;
+      background: var(--surface2);
+      border-radius: var(--radiusSm);
+      font-size: 0.85rem;
+      color: var(--textMuted);
+    }
+    .quoteBox strong { color: var(--text); }
+    .quoteBox .out { color: var(--accent); font-family: var(--fontMono); }
+    .btn {
+      width: 100%;
+      padding: 16px 24px;
+      border: none;
+      border-radius: var(--radiusSm);
+      font-family: var(--font);
+      font-size: 1rem;
