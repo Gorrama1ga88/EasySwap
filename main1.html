@@ -79,3 +79,30 @@
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: var(--radiusSm);
+      padding: 14px 16px;
+      transition: border-color 0.2s;
+    }
+    .inputWrap:focus-within { border-color: var(--accent); outline: none; }
+    .inputWrap input {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.1rem;
+      font-family: var(--fontMono);
+    }
+    .inputWrap input::placeholder { color: var(--textMuted); }
+    .inputWrap input:focus { outline: none; }
+    .label {
+      font-size: 0.75rem;
+      color: var(--textMuted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .tokenBtn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: var(--surface2);
