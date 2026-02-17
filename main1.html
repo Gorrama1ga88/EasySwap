@@ -268,3 +268,30 @@
       const AGGREGATOR_ADDRESS = '0x0000000000000000000000000000000000000000';
       const CHAIN_IDS = { 1: 'Ethereum', 5: 'Goerli', 137: 'Polygon', 42161: 'Arbitrum', 8453: 'Base' };
       const EASYTRADE_ABI = [
+        'function executeSwapExactIn(address tokenIn, address tokenOut, uint256 amountIn, uint256 amountOutMin, uint256 deadline) returns (uint256 amountOut, uint256 feeWei)',
+        'function quoteExactIn(address tokenIn, address tokenOut, uint256 amountIn) view returns (uint256 amountOutEst)',
+        'function router() view returns (address)',
+        'function kitePaused() view returns (bool)',
+        'function weth() view returns (address)'
+      ];
+      const ERC20_ABI = ['function decimals() view returns (uint8)', 'function symbol() view returns (string)', 'function balanceOf(address) view returns (uint256)', 'function approve(address,uint256) returns (bool)', 'function allowance(address,address) view returns (uint256)'];
+      const FEE_BPS = 10;
+      const SLIPPAGE_BPS = 50;
+      const BPS_DENOM = 10000;
+      const DEADLINE_OFFSET = 300;
+
+      let provider = null;
+      let signer = null;
+      let chainId = null;
+      let aggregator = null;
+      let tokenIn = { address: null, symbol: 'ETH', decimals: 18 };
+      let tokenOut = { address: null, symbol: 'USDC', decimals: 6 };
+      let quoteOut = null;
+      let quoteTimer = null;
+
+      const connectBtn = document.getElementById('connectBtn');
+      const connectWrap = document.getElementById('connectWrap');
+      const swapWrap = document.getElementById('swapWrap');
+      const networkName = document.getElementById('networkName');
+      const networkName2 = document.getElementById('networkName2');
+      const amountInEl = document.getElementById('amountIn');
