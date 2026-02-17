@@ -187,3 +187,30 @@
       font-size: 0.8rem;
       color: var(--textMuted);
       margin-top: 12px;
+      text-align: center;
+    }
+    .status.error { color: var(--danger); }
+    .status.success { color: var(--accent); }
+    .network {
+      font-size: 0.8rem;
+      color: var(--textMuted);
+      margin-bottom: 16px;
+    }
+    .footer {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: var(--textMuted);
+      text-align: center;
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Easy<span>Swap</span></h1>
+      <p class="sub">Kite swap aggregator — one route, best execution</p>
+    </header>
+
+    <div id="connectWrap" class="card" style="text-align: center; padding: 32px;">
