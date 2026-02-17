@@ -160,3 +160,30 @@
       border-radius: var(--radiusSm);
       font-family: var(--font);
       font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btnPrimary {
+      background: var(--accent);
+      color: var(--bg);
+      margin-top: 8px;
+    }
+    .btnPrimary:hover:not(:disabled) { background: var(--accentDim); }
+    .btnPrimary:disabled {
+      background: var(--surface2);
+      color: var(--textMuted);
+      cursor: not-allowed;
+    }
+    .btnConnect {
+      background: linear-gradient(135deg, var(--accent) 0%, #1ea88a 100%);
+      color: var(--bg);
+      padding: 14px 28px;
+      border-radius: var(--radius);
+    }
+    .btnConnect:hover { filter: brightness(1.08); }
+    .status {
+      font-size: 0.8rem;
+      color: var(--textMuted);
+      margin-top: 12px;
