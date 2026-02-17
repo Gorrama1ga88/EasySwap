@@ -106,3 +106,30 @@
       gap: 8px;
       padding: 10px 14px;
       background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radiusSm);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      min-width: 120px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .tokenBtn:hover {
+      background: var(--border);
+      border-color: var(--accent);
+    }
+    .tokenBtn .sym { color: var(--accent); font-family: var(--fontMono); }
+    .swapArrow {
+      display: flex;
+      justify-content: center;
+      margin: -4px 0;
+    }
+    .swapArrow button {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--textMuted);
