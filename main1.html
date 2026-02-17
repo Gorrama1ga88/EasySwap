@@ -241,3 +241,30 @@
         <div class="row">
           <div style="flex: 1;">
             <div class="label">You receive</div>
+            <div class="inputWrap">
+              <input type="text" id="amountOut" placeholder="0.0" readonly />
+            </div>
+          </div>
+          <div>
+            <div class="label">&nbsp;</div>
+            <button type="button" class="tokenBtn" id="tokenOutBtn">
+              <span class="sym" id="tokenOutSym">USDC</span>
+            </button>
+          </div>
+        </div>
+        <div id="quoteBox" class="quoteBox" style="display: none;"></div>
+        <button type="button" class="btn btnPrimary" id="swapBtn" disabled>Enter amount</button>
+      </div>
+      <p class="status" id="status"></p>
+    </div>
+
+    <p class="footer">
+      Powered by EasyTrade (Kite). Use at your own risk.
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      const AGGREGATOR_ADDRESS = '0x0000000000000000000000000000000000000000';
+      const CHAIN_IDS = { 1: 'Ethereum', 5: 'Goerli', 137: 'Polygon', 42161: 'Arbitrum', 8453: 'Base' };
+      const EASYTRADE_ABI = [
