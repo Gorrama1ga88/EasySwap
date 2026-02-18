@@ -376,3 +376,30 @@
         str = str.trim().replace(/,/g, '');
         const [whole, frac = ''] = str.split('.');
         const fracPadded = frac.slice(0, decimals).padEnd(decimals, '0');
+        return BigInt(whole + fracPadded);
+      }
+
+      function formatAmount(raw, decimals, maxDecimals) {
+        if (!raw || raw === 0n) return '0';
+        const s = raw.toString().padStart(decimals + 1, '0');
+        const intPart = s.slice(0, -decimals) || '0';
+        const fracPart = s.slice(-decimals).replace(/0+$/, '');
+        if (maxDecimals !== undefined && fracPart.length > maxDecimals) {
+          return intPart + '.' + fracPart.slice(0, maxDecimals);
+        }
+        return fracPart ? intPart + '.' + fracPart : intPart;
+      }
+
+      async function fetchQuote() {
+        const raw = parseAmount(amountInEl.value, tokenIn.decimals);
+        if (!raw || !aggregator || !tokenIn.address || !tokenOut.address) {
+          quoteBox.style.display = 'none';
+          amountOutEl.value = '';
+          quoteOut = null;
+          swapBtn.disabled = true;
+          return;
+        }
+        try {
+          const outEst = await aggregator.quoteExactIn(tokenIn.address, tokenOut.address, raw);
+          const minOut = (outEst * BigInt(BPS_DENOM - SLIPPAGE_BPS)) / BigInt(BPS_DENOM);
+          quoteOut = { amountIn: raw, amountOutEst: outEst, amountOutMin: minOut };
