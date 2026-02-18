@@ -457,3 +457,24 @@
         const a = amountInEl.value;
         const b = amountOutEl.value;
         const t = tokenIn;
+        tokenIn = tokenOut;
+        tokenOut = t;
+        tokenInSym.textContent = tokenIn.symbol;
+        tokenOutSym.textContent = tokenOut.symbol;
+        amountInEl.value = b;
+        amountOutEl.value = a;
+        scheduleQuote();
+      }
+
+      connectBtn.addEventListener('click', connect);
+      amountInEl.addEventListener('input', scheduleQuote);
+      swapBtn.addEventListener('click', doSwap);
+      flipBtn.addEventListener('click', flip);
+
+      if (AGGREGATOR_ADDRESS === '0x0000000000000000000000000000000000000000') {
+        setStatus('Set AGGREGATOR_ADDRESS in the page script to your deployed EasyTrade contract.', 'error');
+      }
+    })();
+  </script>
+</body>
+</html>
