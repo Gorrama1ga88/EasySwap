@@ -349,3 +349,30 @@
         } catch (e) {
           setStatus(e.message || 'Connection failed', 'error');
         }
+      }
+
+      function getDefaultQuoteToken(chainId) {
+        const defaults = {
+          1: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+          5: '0xD87Ba7A50B2E7E660c435435190A6298eE4E3B2d',
+          137: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+          42161: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
+          8453: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        };
+        return defaults[chainId] || '0x0000000000000000000000000000000000000000';
+      }
+
+      async function loadTokenInfo(t) {
+        if (!t.address || t.address === '0x0000000000000000000000000000000000000000') return;
+        try {
+          const c = new ethers.Contract(t.address, ERC20_ABI, provider);
+          t.decimals = await c.decimals();
+          t.symbol = await c.symbol();
+        } catch (_) {}
+      }
+
+      function parseAmount(str, decimals) {
+        if (!str || !str.trim()) return 0n;
+        str = str.trim().replace(/,/g, '');
+        const [whole, frac = ''] = str.split('.');
+        const fracPadded = frac.slice(0, decimals).padEnd(decimals, '0');
