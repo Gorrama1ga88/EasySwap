@@ -322,3 +322,30 @@
         connectWrap.style.display = 'block';
         networkName.textContent = 'Connect wallet to see network';
       }
+
+      async function connect() {
+        if (!window.ethereum) {
+          setStatus('No wallet found. Install MetaMask or another Web3 wallet.', 'error');
+          return;
+        }
+        try {
+          provider = new ethers.BrowserProvider(window.ethereum);
+          const accounts = await provider.send('eth_requestAccounts', []);
+          if (!accounts.length) return;
+          signer = await provider.getSigner();
+          const net = await provider.getNetwork();
+          chainId = Number(net.chainId);
+          networkName.textContent = CHAIN_IDS[chainId] || 'Chain ' + chainId;
+          aggregator = new ethers.Contract(AGGREGATOR_ADDRESS, EASYTRADE_ABI, signer);
+          const wethAddr = await aggregator.weth();
+          tokenIn.address = wethAddr;
+          tokenOut.address = getDefaultQuoteToken(chainId);
+          await loadTokenInfo(tokenIn);
+          await loadTokenInfo(tokenOut);
+          tokenInSym.textContent = tokenIn.symbol;
+          tokenOutSym.textContent = tokenOut.symbol;
+          showSwap();
+          setStatus('');
+        } catch (e) {
+          setStatus(e.message || 'Connection failed', 'error');
+        }
