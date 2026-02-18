@@ -430,3 +430,30 @@
         }
         swapBtn.disabled = true;
         setStatus('Confirm in your wallet…', '');
+        try {
+          const deadline = Math.floor(Date.now() / 1000) + DEADLINE_OFFSET;
+          const tx = await aggregator.executeSwapExactIn(
+            tokenIn.address,
+            tokenOut.address,
+            quoteOut.amountIn,
+            quoteOut.amountOutMin,
+            deadline
+          );
+          setStatus('Waiting for confirmation…', '');
+          const rec = await tx.wait();
+          setStatus('Swap confirmed. Tx: ' + rec.hash.slice(0, 10) + '…', 'success');
+          quoteOut = null;
+          amountInEl.value = '';
+          amountOutEl.value = '';
+          quoteBox.style.display = 'none';
+          fetchQuote();
+        } catch (e) {
+          setStatus(e.message || 'Swap failed', 'error');
+        }
+        swapBtn.disabled = false;
+      }
+
+      function flip() {
+        const a = amountInEl.value;
+        const b = amountOutEl.value;
+        const t = tokenIn;
