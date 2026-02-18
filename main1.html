@@ -403,3 +403,30 @@
           const outEst = await aggregator.quoteExactIn(tokenIn.address, tokenOut.address, raw);
           const minOut = (outEst * BigInt(BPS_DENOM - SLIPPAGE_BPS)) / BigInt(BPS_DENOM);
           quoteOut = { amountIn: raw, amountOutEst: outEst, amountOutMin: minOut };
+          amountOutEl.value = formatAmount(outEst, tokenOut.decimals, 6);
+          quoteBox.style.display = 'block';
+          quoteBox.innerHTML = 'Est. receive: <span class="out">' + formatAmount(outEst, tokenOut.decimals, 6) + ' ' + tokenOut.symbol + '</span>. Min after slippage: <strong>' + formatAmount(minOut, tokenOut.decimals, 6) + '</strong> ' + tokenOut.symbol;
+          swapBtn.disabled = false;
+        } catch (e) {
+          quoteBox.style.display = 'none';
+          amountOutEl.value = '';
+          quoteOut = null;
+          swapBtn.disabled = true;
+          setStatus('Quote failed: ' + (e.message || 'unknown'), 'error');
+        }
+      }
+
+      function scheduleQuote() {
+        if (quoteTimer) clearTimeout(quoteTimer);
+        quoteTimer = setTimeout(fetchQuote, 400);
+      }
+
+      async function doSwap() {
+        if (!quoteOut || !signer || !aggregator) return;
+        const paused = await aggregator.kitePaused();
+        if (paused) {
+          setStatus('Aggregator is paused.', 'error');
+          return;
+        }
+        swapBtn.disabled = true;
+        setStatus('Confirm in your wallet…', '');
