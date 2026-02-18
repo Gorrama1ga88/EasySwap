@@ -295,3 +295,30 @@
       const networkName = document.getElementById('networkName');
       const networkName2 = document.getElementById('networkName2');
       const amountInEl = document.getElementById('amountIn');
+      const amountOutEl = document.getElementById('amountOut');
+      const tokenInBtn = document.getElementById('tokenInBtn');
+      const tokenOutBtn = document.getElementById('tokenOutBtn');
+      const tokenInSym = document.getElementById('tokenInSym');
+      const tokenOutSym = document.getElementById('tokenOutSym');
+      const quoteBox = document.getElementById('quoteBox');
+      const swapBtn = document.getElementById('swapBtn');
+      const statusEl = document.getElementById('status');
+      const flipBtn = document.getElementById('flipBtn');
+
+      function setStatus(msg, type) {
+        statusEl.textContent = msg || '';
+        statusEl.className = 'status' + (type ? ' ' + type : '');
+      }
+
+      function showSwap() {
+        connectWrap.style.display = 'none';
+        swapWrap.style.display = 'block';
+        const name = CHAIN_IDS[chainId] || 'Chain ' + chainId;
+        networkName2.textContent = name;
+      }
+
+      function hideSwap() {
+        swapWrap.style.display = 'none';
+        connectWrap.style.display = 'block';
+        networkName.textContent = 'Connect wallet to see network';
+      }
